@@ -1,13 +1,14 @@
 --[[
-   * Category:    Arrange
-   * Description: Legato with overlap - selected items (whole item, or time selection)
+   * Category:    MIDI Editor
+   * Description: Legato with overlap - takes open in the MIDI editor (whole item, or time selection)
    * Based on:    Archie - Set note ends to start of next note (legato)
-   * Version:     1.4
-   * Changelog:   v1.4 + registered in the MIDI Editor action section
+   * Version:     1.5
+   * Changelog:   v1.5 + works on the takes open in the MIDI editor instead of selected items
+   *              v1.4 + registered in the MIDI Editor action section
    *              v1.3 + repeated notes get no overlap; they end 30 ms before the next note
-   *              v1.2 + ignore muted notes and muted items
+   *              v1.2 + ignore muted notes
    *              v1.1 + ignore notes outside the visible item
-   * Extension:   Reaper 6.2+
+   * Extension:   Reaper 6.37+
 --]]
 
     --======================================================================================
@@ -23,8 +24,8 @@
 
     -------------------------------------------------------
     -- Legato + overlap on one take. Only unmuted notes starting inside the visible item
-    -- (and inside tsStart..tsEnd if useTS)
-    local function LegatoTake(take,useTS,tsStart,tsEnd);
+    -- and inside rStart..rEnd (project time; nil = whole item)
+    local function LegatoTake(take,rStart,rEnd);
         local _,noteCnt = reaper.MIDI_CountEvts(take);
         if noteCnt == 0 then return 0 end;
 
@@ -33,23 +34,19 @@
         local itemEnd = itemPos + reaper.GetMediaItemInfo_Value(item,'D_LENGTH');
         local itemEndPPQ = reaper.MIDI_GetPPQPosFromProjTime(take,itemEnd);
 
-        local rangeStart,rangeEnd = itemPos,itemEnd;
-        if useTS then;
-            rangeStart = math.max(rangeStart,tsStart);
-            rangeEnd   = math.min(rangeEnd,tsEnd);
-            if rangeEnd <= rangeStart then return 0 end;
-        end;
+        local rangeStart = math.max(itemPos,rStart or itemPos);
+        local rangeEnd   = math.min(itemEnd,rEnd or itemEnd);
+        if rangeEnd <= rangeStart then return 0 end;
         local rangeStartPPQ = reaper.MIDI_GetPPQPosFromProjTime(take,rangeStart);
         local rangeEndPPQ   = reaper.MIDI_GetPPQPosFromProjTime(take,rangeEnd);
 
         local targets,samePitch = {},{};
         for i = 0,noteCnt-1 do;
-            local _,sel,muted,s,e,chan,pitch,vel = reaper.MIDI_GetNote(take,i);
+            local _,sel,muted,s,e,chan,pitch = reaper.MIDI_GetNote(take,i);
             if not muted then; -- muted notes are ignored completely
                 local k = chan*128+pitch;
                 samePitch[k] = samePitch[k] or {};
                 samePitch[k][#samePitch[k]+1] = s;
-
                 if s >= rangeStartPPQ and s < rangeEndPPQ then;
                     targets[#targets+1] = {idx=i,s=s,e=e,chan=chan,pitch=pitch};
                 end;
@@ -96,14 +93,21 @@
 
 
     -------------------
-    -- Collect MIDI takes of selected, unmuted items
+    -- Editable takes in the active MIDI editor
+    local editor = reaper.MIDIEditor_GetActive();
+    if not editor then no_undo() return end;
+
     local takes = {};
-    for i = 0,reaper.CountSelectedMediaItems(0)-1 do;
-        local it = reaper.GetSelectedMediaItem(0,i);
-        if reaper.GetMediaItemInfo_Value(it,'B_MUTE') == 0 then;
-            local tk = reaper.GetActiveTake(it);
-            if tk and reaper.TakeIsMIDI(tk) then takes[#takes+1] = tk end;
-        end;
+    local i = 0;
+    while true do;
+        local tk = reaper.MIDIEditor_EnumTakes(editor,i,true);
+        if not tk then break end;
+        takes[#takes+1] = tk;
+        i = i+1;
+    end;
+    if #takes == 0 then;
+        local tk = reaper.MIDIEditor_GetTake(editor);
+        if tk then takes[1] = tk end;
     end;
     if #takes == 0 then no_undo() return end;
 
@@ -117,11 +121,11 @@
     -------------------
 
     for _,tk in ipairs(takes) do;
-        LegatoTake(tk,useTS,tsStart,tsEnd);
+        LegatoTake(tk,useTS and tsStart,useTS and tsEnd);
     end;
 
     -------------------
     reaper.PreventUIRefresh(-1);
     reaper.UpdateArrange();
-    reaper.Undo_EndBlock("Legato with overlap - selected items"..(useTS and " (time selection)" or ""),-1);
+    reaper.Undo_EndBlock("Legato with overlap - MIDI editor"..(useTS and " (time selection)" or ""),-1);
     -------------------

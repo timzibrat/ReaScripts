@@ -39,13 +39,18 @@
   </category>
   <category name="MIDI Note Editing">
     <reapack name="ZS_smart legato with overlap arrange.lua" type="script">
-      <version name="1.1">
+      <version name="1.2">
         <source>https://raw.githubusercontent.com/timzibrat/ReaScripts/main/ZS_smart%20legato%20with%20overlap%20arrange.lua</source>
       </version>
     </reapack>
     <reapack name="ZS_smart legato with overlap.lua" type="script">
-      <version name="1.4">
+      <version name="1.5">
         <source main="midi_editor">https://raw.githubusercontent.com/timzibrat/ReaScripts/main/ZS_smart%20legato%20with%20overlap.lua</source>
+      </version>
+    </reapack>
+    <reapack name="ZS_smart legato with overlap inline.lua" type="script">
+      <version name="1.0">
+        <source main="midi_inlineeditor">https://raw.githubusercontent.com/timzibrat/ReaScripts/main/ZS_smart%20legato%20with%20overlap%20inline.lua</source>
       </version>
     </reapack>
     <reapack name="ZS_smart quantize midi notes.lua" type="script">

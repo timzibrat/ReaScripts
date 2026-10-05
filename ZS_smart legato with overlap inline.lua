@@ -1,11 +1,9 @@
 --[[
-   * Category:    Arrange
-   * Description: Legato with overlap - razor areas, or selected items (whole item, or time selection)
+   * Category:    MIDI Inline Editor
+   * Description: Legato with overlap - razor areas, else item under mouse, else selected items
+   *              (whole item, or time selection)
    * Based on:    Archie - Set note ends to start of next note (legato)
-   * Version:     1.2
-   * Changelog:   v1.2 + razor edits (take priority over item selection)
-   *                   + ignore muted notes, muted items and notes outside the visible item
-   *              v1.1 + repeated notes get no overlap; they end 30 ms before the next note
+   * Version:     1.0
    * Extension:   Reaper 6.2+
 --]]
 
@@ -137,9 +135,15 @@
     local useTS = not useRazor and tsEnd > tsStart;
 
     if not useRazor then;
-        for i = 0,reaper.CountSelectedMediaItems(0)-1 do;
-            local tk = MidiTake(reaper.GetSelectedMediaItem(0,i));
-            if tk then jobs[#jobs+1] = {take=tk,s=useTS and tsStart,e=useTS and tsEnd} end;
+        local x,y = reaper.GetMousePosition();
+        local tk = MidiTake((reaper.GetItemFromPoint(x,y,false)));
+        if tk then;
+            jobs[1] = {take=tk,s=useTS and tsStart,e=useTS and tsEnd};
+        else;
+            for i = 0,reaper.CountSelectedMediaItems(0)-1 do;
+                tk = MidiTake(reaper.GetSelectedMediaItem(0,i));
+                if tk then jobs[#jobs+1] = {take=tk,s=useTS and tsStart,e=useTS and tsEnd} end;
+            end;
         end;
     end;
     if #jobs == 0 then no_undo() return end;
@@ -157,6 +161,6 @@
     -------------------
     reaper.PreventUIRefresh(-1);
     reaper.UpdateArrange();
-    reaper.Undo_EndBlock("Legato with overlap"..(useRazor and " - razor edits" or " - selected items")
+    reaper.Undo_EndBlock("Legato with overlap"..(useRazor and " - razor edits" or " - inline editor")
                          ..(useTS and " (time selection)" or ""),-1);
     -------------------
