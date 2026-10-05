@@ -1,8 +1,9 @@
 --[[
    * Category:    Arrange
-   * Description: Quantize MIDI notes - selected items (whole item, or time selection)
+   * Description: Quantize MIDI notes - razor areas, or selected items (whole item, or time selection)
    * Based on:    me2beats - Quantize MIDI note positions to project grid
-   * Version:     1.0
+   * Version:     1.1
+   * Changelog:   v1.1 + razor edits (take priority over item selection)
    * Extension:   Reaper 6.2+
 --]]
 
@@ -31,21 +32,21 @@
 
 
     -------------------------------------------------------
-    -- Quantize one take. If useTS, only notes starting inside tsStart..tsEnd
-    local function QuantizeTake(take,gridQN,useTS,tsStart,tsEnd);
+    -- Quantize one take. With rStart/rEnd (project time), only notes starting inside that range
+    local function QuantizeTake(take,gridQN,rStart,rEnd);
         local _,noteCnt = reaper.MIDI_CountEvts(take);
         if noteCnt == 0 then return 0 end;
 
-        local tsStartPPQ,tsEndPPQ;
-        if useTS then;
-            tsStartPPQ = reaper.MIDI_GetPPQPosFromProjTime(take,tsStart);
-            tsEndPPQ   = reaper.MIDI_GetPPQPosFromProjTime(take,tsEnd);
+        local rStartPPQ,rEndPPQ;
+        if rStart then;
+            rStartPPQ = reaper.MIDI_GetPPQPosFromProjTime(take,rStart);
+            rEndPPQ   = reaper.MIDI_GetPPQPosFromProjTime(take,rEnd);
         end;
 
         local changed = 0;
         for i = 0,noteCnt-1 do;
             local _,sel,muted,s,e = reaper.MIDI_GetNote(take,i);
-            if not useTS or (s >= tsStartPPQ and s < tsEndPPQ) then;
+            if not rStart or (s >= rStartPPQ and s < rEndPPQ) then;
                 local qn = reaper.MIDI_GetProjQNFromPPQPos(take,s);
                 local gridPPQ = reaper.MIDI_GetPPQPosFromProjQN(take,math.floor(qn/gridQN+0.5)*gridQN);
                 local newStart = math.floor(s + (gridPPQ-s)*STRENGTH/100 + 0.5);
@@ -62,17 +63,58 @@
     -------------------------------------------------------
 
 
-    -------------------
-    -- Collect MIDI takes of selected items
-    local takes = {};
-    for i = 0,reaper.CountSelectedMediaItems(0)-1 do;
-        local tk = reaper.GetActiveTake(reaper.GetSelectedMediaItem(0,i));
-        if tk and reaper.TakeIsMIDI(tk) then takes[#takes+1] = tk end;
+    -------------------------------------------------------
+    -- Active MIDI take of an item, or nil
+    local function MidiTake(item);
+        local tk = item and reaper.GetActiveTake(item);
+        if tk and reaper.TakeIsMIDI(tk) then return tk end;
     end;
-    if #takes == 0 then no_undo() return end;
+    -------------------------------------------------------
 
+
+    -------------------------------------------------------
+    -- Jobs {take,s,e} from track-level razor edits; second value = whether any razor edit exists
+    local function RazorJobs();
+        local jobs,anyRazor = {},false;
+        for t = 0,reaper.CountTracks(0)-1 do;
+            local track = reaper.GetTrack(0,t);
+            local _,str = reaper.GetSetMediaTrackInfo_String(track,'P_RAZOREDITS','',false);
+            local ranges = {};
+            for a,b,guid in str:gmatch('(%S+) (%S+) (%S+)') do;
+                if guid == '""' then ranges[#ranges+1] = {tonumber(a),tonumber(b)} end;
+            end;
+            if #ranges > 0 then;
+                anyRazor = true;
+                for i = 0,reaper.CountTrackMediaItems(track)-1 do;
+                    local item = reaper.GetTrackMediaItem(track,i);
+                    local tk = MidiTake(item);
+                    if tk then;
+                        local pos = reaper.GetMediaItemInfo_Value(item,'D_POSITION');
+                        local fin = pos + reaper.GetMediaItemInfo_Value(item,'D_LENGTH');
+                        for _,r in ipairs(ranges) do;
+                            if r[1] < fin and r[2] > pos then jobs[#jobs+1] = {take=tk,s=r[1],e=r[2]} end;
+                        end;
+                    end;
+                end;
+            end;
+        end;
+        return jobs,anyRazor;
+    end;
+    -------------------------------------------------------
+
+
+    -------------------
+    local jobs,useRazor = RazorJobs();
     local tsStart,tsEnd = reaper.GetSet_LoopTimeRange(false,false,0,0,false);
-    local useTS = tsEnd > tsStart;
+    local useTS = not useRazor and tsEnd > tsStart;
+
+    if not useRazor then;
+        for i = 0,reaper.CountSelectedMediaItems(0)-1 do;
+            local tk = MidiTake(reaper.GetSelectedMediaItem(0,i));
+            if tk then jobs[#jobs+1] = {take=tk,s=useTS and tsStart or nil,e=useTS and tsEnd or nil} end;
+        end;
+    end;
+    if #jobs == 0 then no_undo() return end;
     local gridQN = GridQN();
     -------------------
 
@@ -81,12 +123,13 @@
     reaper.PreventUIRefresh(1);
     -------------------
 
-    for _,tk in ipairs(takes) do;
-        QuantizeTake(tk,gridQN,useTS,tsStart,tsEnd);
+    for _,j in ipairs(jobs) do;
+        QuantizeTake(j.take,gridQN,j.s,j.e);
     end;
 
     -------------------
     reaper.PreventUIRefresh(-1);
     reaper.UpdateArrange();
-    reaper.Undo_EndBlock("Quantize notes ("..STRENGTH.."%) - selected items"..(useTS and " (time selection)" or ""),-1);
+    reaper.Undo_EndBlock("Quantize notes ("..STRENGTH.."%)"..(useRazor and " - razor edits" or " - selected items")
+                         ..(useTS and " (time selection)" or ""),-1);
     -------------------
