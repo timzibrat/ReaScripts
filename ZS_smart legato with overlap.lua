@@ -2,8 +2,9 @@
    * Category:    Arrange
    * Description: Legato with overlap - selected items (whole item, or time selection)
    * Based on:    Archie - Set note ends to start of next note (legato)
-   * Version:     1.3
-   * Changelog:   v1.3 + repeated notes get no overlap; they end 30 ms before the next note
+   * Version:     1.4
+   * Changelog:   v1.4 + registered in the MIDI Editor action section
+   *              v1.3 + repeated notes get no overlap; they end 30 ms before the next note
    *              v1.2 + ignore muted notes and muted items
    *              v1.1 + ignore notes outside the visible item
    * Extension:   Reaper 6.2+
