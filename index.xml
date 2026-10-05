@@ -114,6 +114,10 @@ Ignore muted notes, muted items and notes outside the visible item]]></changelog
         <changelog><![CDATA[First version in the repository]]></changelog>
         <source>https://raw.githubusercontent.com/timzibrat/ReaScripts/46875ea18c7199f8b0eb5dc5d684a21d580a500a/ZS_smart%20quantize%20midi%20notes.lua</source>
       </version>
+      <version name="1.1" author="Zibrat Studio" time="2026-10-05T11:04:30Z">
+        <changelog><![CDATA[Razor edits (take priority over item selection)]]></changelog>
+        <source>https://raw.githubusercontent.com/timzibrat/ReaScripts/17d538a509d2ba4f2fd7b03547b494da41ae511e/ZS_smart%20quantize%20midi%20notes.lua</source>
+      </version>
     </reapack>
   </category>
 </index>
