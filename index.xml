@@ -2,7 +2,7 @@
 <index version="1" name="ZS ReaScripts">
   <category name="MIDI Editing">
     <reapack name="ZS_cc1 inline midi editor.lua" type="script">
-      <version name="0.2">
+      <version name="0.3">
         <source>https://raw.githubusercontent.com/timzibrat/ReaScripts/main/ZS_cc1%20inline%20midi%20editor.lua</source>
       </version>
     </reapack>
@@ -12,7 +12,7 @@
       </version>
     </reapack>
     <reapack name="ZS_cc11 inline midi editor.lua" type="script">
-      <version name="0.2">
+      <version name="0.3">
         <source>https://raw.githubusercontent.com/timzibrat/ReaScripts/main/ZS_cc11%20inline%20midi%20editor.lua</source>
       </version>
     </reapack>
@@ -22,17 +22,17 @@
       </version>
     </reapack>
     <reapack name="ZS_none inline midi editor.lua" type="script">
-      <version name="0.2">
+      <version name="0.3">
         <source>https://raw.githubusercontent.com/timzibrat/ReaScripts/main/ZS_none%20inline%20midi%20editor.lua</source>
       </version>
     </reapack>
     <reapack name="ZS_used cc inline midi editor.lua" type="script">
-      <version name="0.1">
+      <version name="0.2">
         <source>https://raw.githubusercontent.com/timzibrat/ReaScripts/main/ZS_used%20cc%20inline%20midi%20editor.lua</source>
       </version>
     </reapack>
     <reapack name="ZS_vel inline midi editor.lua" type="script">
-      <version name="0.2">
+      <version name="0.3">
         <source>https://raw.githubusercontent.com/timzibrat/ReaScripts/main/ZS_vel%20inline%20midi%20editor.lua</source>
       </version>
     </reapack>

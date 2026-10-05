@@ -1,9 +1,12 @@
--- @description Open selected MIDI items in the inline editor showing only the CC lanes that contain data, minus an exclude list
+-- @description Open the MIDI item under the mouse (or the selected items) in the inline editor showing only the CC lanes that contain data, minus an exclude list
 -- @author Tim Žibrat (written with Claude)
--- @version 0.1
+-- @version 0.2
+-- @changelog
+--   v0.2 + works on the item under the mouse; falls back to selected items
 -- @about
 --   Like "SWS/FNG: Show only used CC lanes", but for the inline editor and
---   with exceptions. For each selected MIDI item, the script scans the item
+--   with exceptions. For the MIDI item under the mouse (or, with the mouse
+--   over no item, each selected MIDI item), the script scans the item
 --   for CC, pitch bend, program change and channel pressure data, shows a
 --   lane for each type it finds (except the ones in EXCLUDE), splits the
 --   space between them, then opens the inline editor.
@@ -21,7 +24,39 @@ local MIN_TRACK_PX   = 300       -- track is raised to at least this height (0 =
 local EDITOR_LANE_PX = 80        -- per-lane height in the full MIDI editor, if you open it later
 ------------------------------------------------------------------
 
-local OPEN_INLINE = 40847        -- Item: Open item inline editors
+local OPEN_INLINE  = 40847       -- Item: Open item inline editors
+local UNSELECT_ALL = 40289       -- Item: Unselect all items
+
+-- The MIDI item under the mouse wins (a non-MIDI item there means nothing to do);
+-- with the mouse over no item, the selected items are used
+local function target_items()
+  local x, y = reaper.GetMousePosition()
+  local item = reaper.GetItemFromPoint(x, y, false)
+  if item then
+    local take = reaper.GetActiveTake(item)
+    if take and reaper.TakeIsMIDI(take) then return { item }, true end
+    return {}, true
+  end
+  local items = {}
+  for i = 0, reaper.CountSelectedMediaItems(0) - 1 do
+    items[#items + 1] = reaper.GetSelectedMediaItem(0, i)
+  end
+  return items, false
+end
+
+-- The open-inline action works on selected items, so select only this one
+-- for it and put the user's selection back afterwards
+local function open_inline_only(item)
+  local sel = {}
+  for i = 0, reaper.CountSelectedMediaItems(0) - 1 do
+    sel[#sel + 1] = reaper.GetSelectedMediaItem(0, i)
+  end
+  reaper.Main_OnCommand(UNSELECT_ALL, 0)
+  reaper.SetMediaItemSelected(item, true)
+  reaper.Main_OnCommand(OPEN_INLINE, 0)
+  reaper.Main_OnCommand(UNSELECT_ALL, 0)
+  for _, it in ipairs(sel) do reaper.SetMediaItemSelected(it, true) end
+end
 
 -- REAPER lane numbers: 0-127 = CC, 128 = pitch bend, 129 = program, 130 = channel pressure
 local NAMED = { pitch = 128, program = 129, pressure = 130 }
@@ -79,8 +114,8 @@ local function set_lanes(item, lanes, inline_px)
 end
 
 local function main()
-  local n = reaper.CountSelectedMediaItems(0)
-  if n == 0 then return end
+  local items, at_mouse = target_items()
+  if #items == 0 then return end
 
   local label = reaper.kbd_getTextFromCmd(OPEN_INLINE, 0) or ""
   if not label:lower():find("inline") then
@@ -90,8 +125,7 @@ local function main()
   end
 
   local track_h = {}
-  for i = 0, n - 1 do
-    local item = reaper.GetSelectedMediaItem(0, i)
+  for _, item in ipairs(items) do
     local take = reaper.GetActiveTake(item)
     if take and reaper.TakeIsMIDI(take) then
       local lanes = used_lanes(take)
@@ -118,7 +152,7 @@ local function main()
     end
   end
 
-  reaper.Main_OnCommand(OPEN_INLINE, 0)
+  if at_mouse then open_inline_only(items[1]) else reaper.Main_OnCommand(OPEN_INLINE, 0) end
 end
 
 reaper.Undo_BeginBlock()
