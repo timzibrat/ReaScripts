@@ -7,63 +7,63 @@
 <index version="1" name="ZS ReaScripts">
   <category name="MIDI Editing">
     <reapack name="ZS_cc1 inline midi editor.lua" type="script">
-      <version name="0.2" time="2026-10-05T06:20:02Z">
+      <version name="0.2" author="Zibrat Studio" time="2026-10-05T06:20:02Z">
         <changelog><![CDATA[First version in the repository]]></changelog>
         <source>https://raw.githubusercontent.com/timzibrat/ReaScripts/46875ea18c7199f8b0eb5dc5d684a21d580a500a/ZS_cc1%20inline%20midi%20editor.lua</source>
       </version>
-      <version name="0.3" time="2026-10-05T09:25:26Z">
+      <version name="0.3" author="Zibrat Studio" time="2026-10-05T09:25:26Z">
         <changelog><![CDATA[Works on the item under the mouse; falls back to selected items]]></changelog>
         <source>https://raw.githubusercontent.com/timzibrat/ReaScripts/95e19ee91bb2052f0bdc45879b06557ee7497dcb/ZS_cc1%20inline%20midi%20editor.lua</source>
       </version>
     </reapack>
     <reapack name="ZS_cc1 to envelope and back to midi.lua" type="script">
-      <version name="0.1" time="2026-10-05T06:20:02Z">
+      <version name="0.1" author="Zibrat Studio" time="2026-10-05T06:20:02Z">
         <changelog><![CDATA[First version in the repository]]></changelog>
         <source>https://raw.githubusercontent.com/timzibrat/ReaScripts/46875ea18c7199f8b0eb5dc5d684a21d580a500a/ZS_cc1%20to%20envelope%20and%20back%20to%20midi.lua</source>
       </version>
     </reapack>
     <reapack name="ZS_cc11 inline midi editor.lua" type="script">
-      <version name="0.2" time="2026-10-05T06:20:02Z">
+      <version name="0.2" author="Zibrat Studio" time="2026-10-05T06:20:02Z">
         <changelog><![CDATA[First version in the repository]]></changelog>
         <source>https://raw.githubusercontent.com/timzibrat/ReaScripts/46875ea18c7199f8b0eb5dc5d684a21d580a500a/ZS_cc11%20inline%20midi%20editor.lua</source>
       </version>
-      <version name="0.3" time="2026-10-05T09:25:26Z">
+      <version name="0.3" author="Zibrat Studio" time="2026-10-05T09:25:26Z">
         <changelog><![CDATA[Works on the item under the mouse; falls back to selected items]]></changelog>
         <source>https://raw.githubusercontent.com/timzibrat/ReaScripts/95e19ee91bb2052f0bdc45879b06557ee7497dcb/ZS_cc11%20inline%20midi%20editor.lua</source>
       </version>
     </reapack>
     <reapack name="ZS_cc11 to envelope and back to midi.lua" type="script">
-      <version name="0.1" time="2026-10-05T06:20:02Z">
+      <version name="0.1" author="Zibrat Studio" time="2026-10-05T06:20:02Z">
         <changelog><![CDATA[First version in the repository]]></changelog>
         <source>https://raw.githubusercontent.com/timzibrat/ReaScripts/46875ea18c7199f8b0eb5dc5d684a21d580a500a/ZS_cc11%20to%20envelope%20and%20back%20to%20midi.lua</source>
       </version>
     </reapack>
     <reapack name="ZS_none inline midi editor.lua" type="script">
-      <version name="0.2" time="2026-10-05T06:20:02Z">
+      <version name="0.2" author="Zibrat Studio" time="2026-10-05T06:20:02Z">
         <changelog><![CDATA[First version in the repository]]></changelog>
         <source>https://raw.githubusercontent.com/timzibrat/ReaScripts/46875ea18c7199f8b0eb5dc5d684a21d580a500a/ZS_none%20inline%20midi%20editor.lua</source>
       </version>
-      <version name="0.3" time="2026-10-05T09:25:26Z">
+      <version name="0.3" author="Zibrat Studio" time="2026-10-05T09:25:26Z">
         <changelog><![CDATA[Works on the item under the mouse; falls back to selected items]]></changelog>
         <source>https://raw.githubusercontent.com/timzibrat/ReaScripts/95e19ee91bb2052f0bdc45879b06557ee7497dcb/ZS_none%20inline%20midi%20editor.lua</source>
       </version>
     </reapack>
     <reapack name="ZS_used cc inline midi editor.lua" type="script">
-      <version name="0.1" time="2026-10-05T06:20:02Z">
+      <version name="0.1" author="Zibrat Studio" time="2026-10-05T06:20:02Z">
         <changelog><![CDATA[First version in the repository]]></changelog>
         <source>https://raw.githubusercontent.com/timzibrat/ReaScripts/46875ea18c7199f8b0eb5dc5d684a21d580a500a/ZS_used%20cc%20inline%20midi%20editor.lua</source>
       </version>
-      <version name="0.2" time="2026-10-05T09:25:26Z">
+      <version name="0.2" author="Zibrat Studio" time="2026-10-05T09:25:26Z">
         <changelog><![CDATA[Works on the item under the mouse; falls back to selected items]]></changelog>
         <source>https://raw.githubusercontent.com/timzibrat/ReaScripts/95e19ee91bb2052f0bdc45879b06557ee7497dcb/ZS_used%20cc%20inline%20midi%20editor.lua</source>
       </version>
     </reapack>
     <reapack name="ZS_vel inline midi editor.lua" type="script">
-      <version name="0.2" time="2026-10-05T06:20:02Z">
+      <version name="0.2" author="Zibrat Studio" time="2026-10-05T06:20:02Z">
         <changelog><![CDATA[First version in the repository]]></changelog>
         <source>https://raw.githubusercontent.com/timzibrat/ReaScripts/46875ea18c7199f8b0eb5dc5d684a21d580a500a/ZS_vel%20inline%20midi%20editor.lua</source>
       </version>
-      <version name="0.3" time="2026-10-05T09:25:26Z">
+      <version name="0.3" author="Zibrat Studio" time="2026-10-05T09:25:26Z">
         <changelog><![CDATA[Works on the item under the mouse; falls back to selected items]]></changelog>
         <source>https://raw.githubusercontent.com/timzibrat/ReaScripts/95e19ee91bb2052f0bdc45879b06557ee7497dcb/ZS_vel%20inline%20midi%20editor.lua</source>
       </version>
@@ -71,46 +71,46 @@
   </category>
   <category name="MIDI Note Editing">
     <reapack name="ZS_smart legato with overlap arrange.lua" type="script">
-      <version name="1.0" time="2026-10-05T06:20:02Z">
+      <version name="1.0" author="Zibrat Studio" time="2026-10-05T06:20:02Z">
         <changelog><![CDATA[First version in the repository]]></changelog>
         <source>https://raw.githubusercontent.com/timzibrat/ReaScripts/46875ea18c7199f8b0eb5dc5d684a21d580a500a/ZS_smart%20legato%20with%20overlap%20arrange.lua</source>
       </version>
-      <version name="1.1" time="2026-10-05T08:49:23Z">
+      <version name="1.1" author="Zibrat Studio" time="2026-10-05T08:49:23Z">
         <changelog><![CDATA[Repeated notes get no overlap; they end 30 ms before the next note]]></changelog>
         <source>https://raw.githubusercontent.com/timzibrat/ReaScripts/a67232f5f3804b9113c6067e50804b34c4ac8227/ZS_smart%20legato%20with%20overlap%20arrange.lua</source>
       </version>
-      <version name="1.2" time="2026-10-05T09:13:36Z">
+      <version name="1.2" author="Zibrat Studio" time="2026-10-05T09:13:36Z">
         <changelog><![CDATA[Razor edits (take priority over item selection)
 Ignore muted notes, muted items and notes outside the visible item]]></changelog>
         <source>https://raw.githubusercontent.com/timzibrat/ReaScripts/ff73c147e880d6afeb1bbb7d06e943b924738845/ZS_smart%20legato%20with%20overlap%20arrange.lua</source>
       </version>
     </reapack>
     <reapack name="ZS_smart legato with overlap.lua" type="script">
-      <version name="1.2" time="2026-10-05T06:20:02Z">
+      <version name="1.2" author="Zibrat Studio" time="2026-10-05T06:20:02Z">
         <changelog><![CDATA[First version in the repository]]></changelog>
         <source main="midi_editor">https://raw.githubusercontent.com/timzibrat/ReaScripts/46875ea18c7199f8b0eb5dc5d684a21d580a500a/ZS_smart%20legato%20with%20overlap.lua</source>
       </version>
-      <version name="1.3" time="2026-10-05T08:49:23Z">
+      <version name="1.3" author="Zibrat Studio" time="2026-10-05T08:49:23Z">
         <changelog><![CDATA[Repeated notes get no overlap; they end 30 ms before the next note]]></changelog>
         <source main="midi_editor">https://raw.githubusercontent.com/timzibrat/ReaScripts/a67232f5f3804b9113c6067e50804b34c4ac8227/ZS_smart%20legato%20with%20overlap.lua</source>
       </version>
-      <version name="1.4" time="2026-10-05T09:12:25Z">
+      <version name="1.4" author="Zibrat Studio" time="2026-10-05T09:12:25Z">
         <changelog><![CDATA[Registered in the MIDI Editor action section]]></changelog>
         <source main="midi_editor">https://raw.githubusercontent.com/timzibrat/ReaScripts/3f760aacdd6595843f729f9fd7a90d347a2b08e7/ZS_smart%20legato%20with%20overlap.lua</source>
       </version>
-      <version name="1.5" time="2026-10-05T09:13:36Z">
+      <version name="1.5" author="Zibrat Studio" time="2026-10-05T09:13:36Z">
         <changelog><![CDATA[Works on the takes open in the MIDI editor instead of selected items]]></changelog>
         <source main="midi_editor">https://raw.githubusercontent.com/timzibrat/ReaScripts/ff73c147e880d6afeb1bbb7d06e943b924738845/ZS_smart%20legato%20with%20overlap.lua</source>
       </version>
     </reapack>
     <reapack name="ZS_smart legato with overlap inline.lua" type="script">
-      <version name="1.0" time="2026-10-05T09:13:36Z">
+      <version name="1.0" author="Zibrat Studio" time="2026-10-05T09:13:36Z">
         <changelog><![CDATA[First version: razor areas, else item under mouse, else selected items]]></changelog>
         <source main="midi_inlineeditor">https://raw.githubusercontent.com/timzibrat/ReaScripts/ff73c147e880d6afeb1bbb7d06e943b924738845/ZS_smart%20legato%20with%20overlap%20inline.lua</source>
       </version>
     </reapack>
     <reapack name="ZS_smart quantize midi notes.lua" type="script">
-      <version name="1.0" time="2026-10-05T06:20:02Z">
+      <version name="1.0" author="Zibrat Studio" time="2026-10-05T06:20:02Z">
         <changelog><![CDATA[First version in the repository]]></changelog>
         <source>https://raw.githubusercontent.com/timzibrat/ReaScripts/46875ea18c7199f8b0eb5dc5d684a21d580a500a/ZS_smart%20quantize%20midi%20notes.lua</source>
       </version>
