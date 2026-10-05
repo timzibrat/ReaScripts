@@ -2,14 +2,16 @@
    * Category:    Arrange
    * Description: Legato with overlap - selected items (whole item, or time selection)
    * Based on:    Archie - Set note ends to start of next note (legato)
-   * Version:     1.2
-   * Changelog:   v1.2 + ignore muted notes and muted items
+   * Version:     1.3
+   * Changelog:   v1.3 + repeated notes get no overlap; they end 30 ms before the next note
+   *              v1.2 + ignore muted notes and muted items
    *              v1.1 + ignore notes outside the visible item
    * Extension:   Reaper 6.2+
 --]]
 
     --======================================================================================
     local OVERLAP_MS = 20; -- how far each note extends past the next note's start (milliseconds)
+    local REPEAT_GAP_MS = 30; -- repeated notes (same pitch) end this much before the next one (milliseconds)
     --======================================================================================
 
 
@@ -70,9 +72,14 @@
                 newEnd = math.floor(newEnd+0.5);
                 -- overlap may not run past the item end
                 newEnd = math.min(newEnd,itemEndPPQ);
-                -- never run into the next note of the same pitch/channel
+                -- repeated note (same pitch/channel would be hit): no overlap, end REPEAT_GAP_MS early
+                local repStart;
                 for _,s in ipairs(samePitch[n.chan*128+n.pitch]) do;
-                    if s > n.s and s < newEnd then newEnd = s end;
+                    if s > n.s and s < newEnd and (not repStart or s < repStart) then repStart = s end;
+                end;
+                if repStart then;
+                    local rt = reaper.MIDI_GetProjTimeFromPPQPos(take,repStart);
+                    newEnd = math.floor(reaper.MIDI_GetPPQPosFromProjTime(take,rt-REPEAT_GAP_MS/1000)+0.5);
                 end;
                 if newEnd > n.s and newEnd ~= n.e then;
                     reaper.MIDI_SetNote(take,n.idx,nil,nil,nil,newEnd,nil,nil,nil,true);
