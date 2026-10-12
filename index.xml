@@ -84,6 +84,12 @@
 Ignore muted notes, muted items and notes outside the visible item]]></changelog>
         <source>https://raw.githubusercontent.com/timzibrat/ReaScripts/ff73c147e880d6afeb1bbb7d06e943b924738845/ZS_smart%20legato%20with%20overlap%20arrange.lua</source>
       </version>
+      <version name="1.3" author="Zibrat Studio" time="2026-10-12T19:58:38Z">
+        <changelog><![CDATA[One script for arrange and the inline editor (replaces the separate inline version)
+Priority: selected notes > razor areas > time selection > selected items
+With no item selected, the item under the mouse is used]]></changelog>
+        <source main="main midi_inlineeditor">https://raw.githubusercontent.com/timzibrat/ReaScripts/cfc738c32a87530c0a30e29bc37d8eade8a225c8/ZS_smart%20legato%20with%20overlap%20arrange.lua</source>
+      </version>
     </reapack>
     <reapack name="ZS_smart legato with overlap.lua" type="script">
       <version name="1.2" author="Zibrat Studio" time="2026-10-05T06:20:02Z">
@@ -103,12 +109,6 @@ Ignore muted notes, muted items and notes outside the visible item]]></changelog
         <source main="midi_editor">https://raw.githubusercontent.com/timzibrat/ReaScripts/ff73c147e880d6afeb1bbb7d06e943b924738845/ZS_smart%20legato%20with%20overlap.lua</source>
       </version>
     </reapack>
-    <reapack name="ZS_smart legato with overlap inline.lua" type="script">
-      <version name="1.0" author="Zibrat Studio" time="2026-10-05T09:13:36Z">
-        <changelog><![CDATA[First version: razor areas, else item under mouse, else selected items]]></changelog>
-        <source main="midi_inlineeditor">https://raw.githubusercontent.com/timzibrat/ReaScripts/ff73c147e880d6afeb1bbb7d06e943b924738845/ZS_smart%20legato%20with%20overlap%20inline.lua</source>
-      </version>
-    </reapack>
     <reapack name="ZS_smart quantize midi notes.lua" type="script">
       <version name="1.0" author="Zibrat Studio" time="2026-10-05T06:20:02Z">
         <changelog><![CDATA[First version in the repository]]></changelog>
@@ -117,6 +117,20 @@ Ignore muted notes, muted items and notes outside the visible item]]></changelog
       <version name="1.1" author="Zibrat Studio" time="2026-10-05T11:04:30Z">
         <changelog><![CDATA[Razor edits (take priority over item selection)]]></changelog>
         <source>https://raw.githubusercontent.com/timzibrat/ReaScripts/17d538a509d2ba4f2fd7b03547b494da41ae511e/ZS_smart%20quantize%20midi%20notes.lua</source>
+      </version>
+      <version name="1.2" author="Zibrat Studio" time="2026-10-12T19:58:38Z">
+        <changelog><![CDATA[One script for arrange and the inline editor
+Priority: selected notes > razor areas > time selection > selected items
+With no item selected, the item under the mouse is used · muted items are skipped]]></changelog>
+        <source main="main midi_inlineeditor">https://raw.githubusercontent.com/timzibrat/ReaScripts/cfc738c32a87530c0a30e29bc37d8eade8a225c8/ZS_smart%20quantize%20midi%20notes.lua</source>
+      </version>
+    </reapack>
+  </category>
+  <category name="Mixing">
+    <reapack name="ZS_master stereo 5.1 toggle.lua" type="script">
+      <version name="1.0" author="Zibrat Studio" time="2026-10-12T19:58:38Z">
+        <changelog><![CDATA[First version: master stereo (2 ch, out 1-2) <-> 5.1 (6 ch, out 1-6), toolbar toggle]]></changelog>
+        <source>https://raw.githubusercontent.com/timzibrat/ReaScripts/cfc738c32a87530c0a30e29bc37d8eade8a225c8/ZS_master%20stereo%205.1%20toggle.lua</source>
       </version>
     </reapack>
   </category>
