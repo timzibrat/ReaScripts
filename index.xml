@@ -108,6 +108,11 @@ With no item selected, the item under the mouse is used]]></changelog>
         <changelog><![CDATA[Works on the takes open in the MIDI editor instead of selected items]]></changelog>
         <source main="midi_editor">https://raw.githubusercontent.com/timzibrat/ReaScripts/ff73c147e880d6afeb1bbb7d06e943b924738845/ZS_smart%20legato%20with%20overlap.lua</source>
       </version>
+      <version name="1.6" author="Zibrat Studio" time="2026-10-12T20:58:19Z">
+        <changelog><![CDATA[With notes selected, only those are changed (fix: harmonies got shortened)
+Priority: selected notes > time selection > all notes]]></changelog>
+        <source main="midi_editor">https://raw.githubusercontent.com/timzibrat/ReaScripts/eede99f8acd76e553469e0d8be7db2e1101b69c4/ZS_smart%20legato%20with%20overlap.lua</source>
+      </version>
     </reapack>
     <reapack name="ZS_smart quantize midi notes.lua" type="script">
       <version name="1.0" author="Zibrat Studio" time="2026-10-05T06:20:02Z">
