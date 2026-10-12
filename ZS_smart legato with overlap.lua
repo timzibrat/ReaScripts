@@ -1,9 +1,10 @@
 --[[
    * Category:    MIDI Editor
-   * Description: Legato with overlap - takes open in the MIDI editor (whole item, or time selection)
+   * Description: Legato with overlap - MIDI editor: selected notes, else time selection, else all notes
    * Based on:    Archie - Set note ends to start of next note (legato)
-   * Version:     1.5
-   * Changelog:   v1.5 + works on the takes open in the MIDI editor instead of selected items
+   * Version:     1.6
+   * Changelog:   v1.6 + with notes selected, only those are changed (fix: harmonies got shortened)
+   *              v1.5 + works on the takes open in the MIDI editor instead of selected items
    *              v1.4 + registered in the MIDI Editor action section
    *              v1.3 + repeated notes get no overlap; they end 30 ms before the next note
    *              v1.2 + ignore muted notes
@@ -24,8 +25,8 @@
 
     -------------------------------------------------------
     -- Legato + overlap on one take. Only unmuted notes starting inside the visible item
-    -- and inside rStart..rEnd (project time; nil = whole item)
-    local function LegatoTake(take,rStart,rEnd);
+    -- and inside rStart..rEnd (project time; nil = whole item); with selOnly, only selected notes
+    local function LegatoTake(take,rStart,rEnd,selOnly);
         local _,noteCnt = reaper.MIDI_CountEvts(take);
         if noteCnt == 0 then return 0 end;
 
@@ -47,7 +48,7 @@
                 local k = chan*128+pitch;
                 samePitch[k] = samePitch[k] or {};
                 samePitch[k][#samePitch[k]+1] = s;
-                if s >= rangeStartPPQ and s < rangeEndPPQ then;
+                if s >= rangeStartPPQ and s < rangeEndPPQ and (sel or not selOnly) then;
                     targets[#targets+1] = {idx=i,s=s,e=e,chan=chan,pitch=pitch};
                 end;
             end;
@@ -111,8 +112,14 @@
     end;
     if #takes == 0 then no_undo() return end;
 
+    -- selected notes win over the time selection
+    local selOnly = false;
+    for _,tk in ipairs(takes) do;
+        if reaper.MIDI_EnumSelNotes(tk,-1) ~= -1 then selOnly = true break end;
+    end;
+
     local tsStart,tsEnd = reaper.GetSet_LoopTimeRange(false,false,0,0,false);
-    local useTS = tsEnd > tsStart;
+    local useTS = not selOnly and tsEnd > tsStart;
     -------------------
 
     -------------------
@@ -121,11 +128,11 @@
     -------------------
 
     for _,tk in ipairs(takes) do;
-        LegatoTake(tk,useTS and tsStart,useTS and tsEnd);
+        LegatoTake(tk,useTS and tsStart,useTS and tsEnd,selOnly);
     end;
 
     -------------------
     reaper.PreventUIRefresh(-1);
     reaper.UpdateArrange();
-    reaper.Undo_EndBlock("Legato with overlap - MIDI editor"..(useTS and " (time selection)" or ""),-1);
+    reaper.Undo_EndBlock("Legato with overlap - MIDI editor"..(selOnly and " (selected notes)" or useTS and " (time selection)" or ""),-1);
     -------------------
