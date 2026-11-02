@@ -147,4 +147,12 @@ With no item selected, the item under the mouse is used · muted items are skipp
       </version>
     </reapack>
   </category>
+  <category name="Extensions (third-party)">
+    <reapack name="reaper_smoothwheelscroll-x64.dll" type="extension">
+      <version name="1.7.7" author="bobo198504" time="2026-10-20T09:53:14Z">
+        <changelog><![CDATA[* Each scroll and zoom direction has its own speed knob, 0.5x–3x （thank's graysonsolis)]]></changelog>
+        <source platform="win64" hash="12209d0372ccc3c3ce6e29f25d9df513e60f3eebb10ec79d517cf6e83968d8e09c74">https://github.com/bobo198504/SmoothWheelScroll/releases/download/v1.7.7/reaper_smoothwheelscroll-x64.dll</source>
+      </version>
+    </reapack>
+  </category>
 </index>
