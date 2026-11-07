@@ -153,6 +153,51 @@ With no item selected, the item under the mouse is used · muted items are skipp
         <changelog><![CDATA[* Each scroll and zoom direction has its own speed knob, 0.5x–3x （thank's graysonsolis)]]></changelog>
         <source platform="win64" hash="12209d0372ccc3c3ce6e29f25d9df513e60f3eebb10ec79d517cf6e83968d8e09c74">https://github.com/bobo198504/SmoothWheelScroll/releases/download/v1.7.7/reaper_smoothwheelscroll-x64.dll</source>
       </version>
+      <version name="1.8" author="bobo198504" time="2026-11-06T13:59:08Z">
+        <changelog><![CDATA[* Multi-platform refactor: Windows x64 / Windows ARM64 / macOS share one model and delivery layer
+* macOS support (test build)
+* Windows ARM64 support
++ A diagnostic log is written at startup, to make reports easier
+# Touchpad reverse had no effect on horizontal zoom (regression since 1.7.4, fixed)
+
+
+---
+
+## Downloads
+
+| Platform | File | Status |
+|---|---|---|
+| Windows x64 | `reaper_smoothwheelscroll-x64.dll` | tested |
+| Windows ARM64 | `reaper_smoothwheelscroll-arm64.dll` | test build, not run on ARM hardware |
+| macOS Apple Silicon | `reaper_smoothwheelscroll-mac-arm64.dylib` | test build |
+| macOS Intel | `reaper_smoothwheelscroll-mac-x86_64.dylib` | test build |
+
+Install: put the file for your platform in REAPER's `UserPlugins` folder
+(`%APPDATA%\REAPER\UserPlugins\` on Windows,
+`~/Library/Application Support/REAPER/UserPlugins/` on macOS).
+
+## macOS
+
+**The macOS builds are unverified.** They were compiled and linked on GitHub's macOS runners and
+export `ReaperPluginEntry` correctly, but no one has loaded them in REAPER yet.
+
+**First run: grant REAPER the Accessibility permission** (System Settings > Privacy & Security >
+Accessibility). Without it the plugin receives no wheel events and behaves as if not installed.
+
+**The log is the diagnostic channel**, and it is on by default on macOS:
+
+
+open -e "$TMPDIR/SmoothWheelScroll.log"
+
+
+Its first lines record the build, the REAPER version, whether the wheel hook installed, and whether
+the master switch is on.
+
+Known gaps on macOS: no settings panel (SWELL provides no window creation there), and surfaces that
+the Windows build reaches only through its message hook are not animated. Details in
+`MACOS-PORT.md`.]]></changelog>
+        <source platform="win64" hash="12201a93483d3cbe7df5a28412e5ea62b3637919d0bb3c4128a32eaa7e0d7dbcb8ae">https://github.com/bobo198504/SmoothWheelScroll/releases/download/v1.8/reaper_smoothwheelscroll-x64.dll</source>
+      </version>
     </reapack>
   </category>
 </index>
