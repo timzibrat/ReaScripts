@@ -204,6 +204,15 @@ the Windows build reaches only through its message hook are not animated. Detail
 `MACOS-PORT.md`.]]></changelog>
         <source platform="win64" hash="12201a93483d3cbe7df5a28412e5ea62b3637919d0bb3c4128a32eaa7e0d7dbcb8ae">https://github.com/bobo198504/SmoothWheelScroll/releases/download/v1.8/reaper_smoothwheelscroll-x64.dll</source>
       </version>
+      <version name="1.8.1" author="bobo198504" time="2026-11-10T00:44:19Z">
+        <changelog><![CDATA[* Use process-local wheel monitoring on macOS, with no Accessibility permission
++ Add a native macOS settings panel
+# Fix macOS treating a touchpad as a notched mouse
+# Fix the macOS wheel monitor surviving plugin reloads
+# Add macOS development status, startup checks and feedback links to the log
+# Fix the version shown in the startup log]]></changelog>
+        <source platform="win64" hash="12202e9bc2eac62f779d0eaccb66f2f003ce6e0b9ac450768799b3410d3872f6701e">https://github.com/bobo198504/SmoothWheelScroll/releases/download/v1.8.1/reaper_smoothwheelscroll-x64.dll</source>
+      </version>
     </reapack>
   </category>
 </index>
