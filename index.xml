@@ -146,6 +146,12 @@ With no item selected, the item under the mouse is used · muted items are skipp
         <source main="main">https://raw.githubusercontent.com/timzibrat/ReaScripts/cfc738c32a87530c0a30e29bc37d8eade8a225c8/ZS_master%20stereo%205.1%20toggle.lua</source>
       </version>
     </reapack>
+    <reapack name="ZS_split reverb send for selected tracks.lua" type="script">
+      <version name="1.0" author="Zibrat Studio" time="2026-11-10T10:01:13Z">
+        <changelog><![CDATA[First version: copy the reverb/send tracks the selected tracks use right above them, move their sends (with automation) onto the copy, ready for Move tracks to subproject]]></changelog>
+        <source main="main">https://raw.githubusercontent.com/timzibrat/ReaScripts/853bdd8a8891eafdd7cdff47e164735a7244b7f5/ZS_split%20reverb%20send%20for%20selected%20tracks.lua</source>
+      </version>
+    </reapack>
   </category>
   <category name="Extensions (third-party)">
     <reapack name="reaper_smoothwheelscroll-x64.dll" type="extension">
