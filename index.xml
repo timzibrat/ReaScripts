@@ -139,6 +139,14 @@ With no item selected, the item under the mouse is used · muted items are skipp
       </version>
     </reapack>
   </category>
+  <category name="Editing">
+    <reapack name="ZS_glue items independently with handles.lua" type="script">
+      <version name="1.0" author="Zibrat Studio" time="2026-11-13T09:45:18Z">
+        <changelog><![CDATA[First version: glues each selected item on its own with up to 4 s handles, then trims back so the edit stays in place]]></changelog>
+        <source main="main">https://raw.githubusercontent.com/timzibrat/ReaScripts/2983a9df95d28bbd29d76ac392548f9d90648036/ZS_glue%20items%20independently%20with%20handles.lua</source>
+      </version>
+    </reapack>
+  </category>
   <category name="Mixing">
     <reapack name="ZS_master stereo 5.1 toggle.lua" type="script">
       <version name="1.0" author="Zibrat Studio" time="2026-10-12T19:58:38Z">
