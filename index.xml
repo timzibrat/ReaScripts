@@ -147,6 +147,14 @@ With no item selected, the item under the mouse is used · muted items are skipp
       </version>
     </reapack>
   </category>
+  <category name="Project">
+    <reapack name="ZS_open selected subproject (FX offline, new tab).lua" type="script">
+      <version name="1.0" author="Zibrat Studio" time="2026-11-14T09:26:03Z">
+        <changelog><![CDATA[First version in the repository: opens each selected subproject in a new tab with FX offline]]></changelog>
+        <source main="main">https://raw.githubusercontent.com/timzibrat/ReaScripts/0af57dc151ef41ad9785eff1a7781456a3c1629f/ZS_open%20selected%20subproject%20%28FX%20offline%2C%20new%20tab%29.lua</source>
+      </version>
+    </reapack>
+  </category>
   <category name="Mixing">
     <reapack name="ZS_master stereo 5.1 toggle.lua" type="script">
       <version name="1.0" author="Zibrat Studio" time="2026-10-12T19:58:38Z">
