@@ -1,7 +1,8 @@
 -- @description Open the subproject of each selected item in a new tab, with FX offline
 -- @author Zibrat Studio
--- @version 1.1
+-- @version 1.2
 -- @changelog
+--   v1.2 + a project saved while FX were offline keeps its stored list when opened again
 --   v1.1 + remembers which FX were online in the file, for "ZS_restore FX online state and save"
 --   v1.0 + first version in the repository
 -- @about
@@ -65,7 +66,10 @@ for _, p in ipairs(paths) do
   r.Main_OnCommand(40859, 0)                       -- new project tab
   r.Main_openProject("noprompt:fxoffline:" .. p)   -- opens into that empty tab
   local proj, fn = r.EnumProjects(-1, "")
-  if guids and same_file(fn, p) then
+  local _, already = r.GetProjExtState(proj, EXT, "opened")
+  if already == "1" and same_file(fn, p) then
+    -- saved earlier while FX were offline: the file's own list is the true one, keep it
+  elseif guids and same_file(fn, p) then
     r.SetProjExtState(proj, EXT, "opened", "1")
     r.SetProjExtState(proj, EXT, "online", table.concat(guids, " "))
   else
