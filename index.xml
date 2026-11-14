@@ -163,6 +163,10 @@ With no item selected, the item under the mouse is used · muted items are skipp
         <changelog><![CDATA[First version: brings back only the FX that were online before the FX-offline open, then saves]]></changelog>
         <source main="main">https://raw.githubusercontent.com/timzibrat/ReaScripts/ba50a935cd61acc5e8294d1f4efb54759a0146fd/ZS_restore%20FX%20online%20state%20and%20save.lua</source>
       </version>
+      <version name="1.1" author="Zibrat Studio" time="2026-11-14T09:59:05Z">
+        <changelog><![CDATA[Closes the FX windows that reopen when an FX comes back online]]></changelog>
+        <source main="main">https://raw.githubusercontent.com/timzibrat/ReaScripts/7aa3c97e21c05c661a6dfb5baa13cc830f8e2034/ZS_restore%20FX%20online%20state%20and%20save.lua</source>
+      </version>
     </reapack>
   </category>
   <category name="Mixing">
