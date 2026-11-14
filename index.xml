@@ -157,6 +157,10 @@ With no item selected, the item under the mouse is used · muted items are skipp
         <changelog><![CDATA[Remembers which FX were online in the file, for "ZS_restore FX online state and save"]]></changelog>
         <source main="main">https://raw.githubusercontent.com/timzibrat/ReaScripts/ba50a935cd61acc5e8294d1f4efb54759a0146fd/ZS_open%20selected%20subproject%20%28FX%20offline%2C%20new%20tab%29.lua</source>
       </version>
+      <version name="1.2" author="Zibrat Studio" time="2026-11-14T10:00:25Z">
+        <changelog><![CDATA[A project saved while FX were offline keeps its stored list when opened again]]></changelog>
+        <source main="main">https://raw.githubusercontent.com/timzibrat/ReaScripts/a52e47bd0976a7c34d6ed288f766edec7095a2f0/ZS_open%20selected%20subproject%20%28FX%20offline%2C%20new%20tab%29.lua</source>
+      </version>
     </reapack>
     <reapack name="ZS_restore FX online state and save.lua" type="script">
       <version name="1.0" author="Zibrat Studio" time="2026-11-14T09:54:02Z">
