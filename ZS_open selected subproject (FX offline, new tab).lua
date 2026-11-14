@@ -8,8 +8,9 @@
 -- @about
 --   Opens every selected subproject in its own project tab with all FX offline,
 --   so heavy subprojects load fast. Before opening, it reads the .rpp and stores
---   which FX were online. Run "ZS_restore FX online state and save" before saving:
---   it brings back only those FX, so FX that were offline in the file stay offline.
+--   which FX were online. "ZS_restore FX online state" brings back only those FX
+--   (FX that were offline in the file stay offline). A normal save does not store
+--   the temporary offline state, so restoring is optional.
 --   Needs REAPER with Main_openProject "fxoffline:" support.
 
 local r = reaper

@@ -1,14 +1,15 @@
--- @description Restore the FX that were online before "open subproject (FX offline)", then save
+-- @description Restore the FX that were online before "open subproject (FX offline)"
 -- @author Zibrat Studio
--- @version 1.1
+-- @version 2.0
 -- @changelog
+--   v2.0 + no longer saves; renamed from "ZS_restore FX online state and save"
 --   v1.1 + closes the FX windows that reopen when an FX comes back online
 --   v1.0 + first version
 -- @about
 --   For a project opened with "ZS_open selected subproject (FX offline, new tab)":
 --   brings back online exactly the FX that were online in the file (track, master,
---   input and take FX), leaves the rest offline, then saves the project.
---   In any other project it saves nothing and says so.
+--   input and take FX) without opening their windows, and leaves the rest offline.
+--   Does not save.
 
 local r = reaper
 local EXT = "ZS_FXOFFLINE"
@@ -16,7 +17,7 @@ local EXT = "ZS_FXOFFLINE"
 local _, opened = r.GetProjExtState(0, EXT, "opened")
 local _, list = r.GetProjExtState(0, EXT, "online")
 if opened ~= "1" then
-  r.ShowMessageBox("This project wasn't opened with the FX-offline script, so nothing was restored or saved.",
+  r.ShowMessageBox("This project wasn't opened with the FX-offline script, so there's nothing to restore.",
     "Restore FX online state", 0)
   return
 end
@@ -68,10 +69,9 @@ for i = 0, r.CountMediaItems(0) - 1 do
   end
 end
 
--- done: don't carry the list into the saved file
+-- done: don't carry the list into the file on the next save
 r.SetProjExtState(0, EXT, "opened", "")
 r.SetProjExtState(0, EXT, "online", "")
 
 r.PreventUIRefresh(-1)
 r.Undo_EndBlock("Restore " .. restored .. " FX online", -1)
-r.Main_OnCommand(40026, 0)  -- File: Save project
