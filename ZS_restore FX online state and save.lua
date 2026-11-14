@@ -1,7 +1,8 @@
 -- @description Restore the FX that were online before "open subproject (FX offline)", then save
 -- @author Zibrat Studio
--- @version 1.0
+-- @version 1.1
 -- @changelog
+--   v1.1 + closes the FX windows that reopen when an FX comes back online
 --   v1.0 + first version
 -- @about
 --   For a project opened with "ZS_open selected subproject (FX offline, new tab)":
@@ -27,13 +28,23 @@ r.Undo_BeginBlock()
 r.PreventUIRefresh(1)
 
 local restored = 0
+
+-- Bringing an FX online reopens any window it had open when the file was saved:
+-- close its floating window and the FX chain window right away.
+local function online_track_fx(tr, idx)
+  r.TrackFX_SetOffline(tr, idx, false)
+  r.TrackFX_Show(tr, idx, 2)  -- hide floating window
+  r.TrackFX_Show(tr, idx, 0)  -- hide FX chain window
+  restored = restored + 1
+end
+
 local function track_fx(tr)
   for i = 0, r.TrackFX_GetCount(tr) - 1 do
-    if want[r.TrackFX_GetFXGUID(tr, i)] then r.TrackFX_SetOffline(tr, i, false); restored = restored + 1 end
+    if want[r.TrackFX_GetFXGUID(tr, i)] then online_track_fx(tr, i) end
   end
   for i = 0, r.TrackFX_GetRecCount(tr) - 1 do  -- input FX
     local idx = 0x1000000 + i
-    if want[r.TrackFX_GetFXGUID(tr, idx)] then r.TrackFX_SetOffline(tr, idx, false); restored = restored + 1 end
+    if want[r.TrackFX_GetFXGUID(tr, idx)] then online_track_fx(tr, idx) end
   end
 end
 
@@ -46,7 +57,12 @@ for i = 0, r.CountMediaItems(0) - 1 do
     local tk = r.GetTake(item, k)
     if tk then
       for f = 0, r.TakeFX_GetCount(tk) - 1 do
-        if want[r.TakeFX_GetFXGUID(tk, f)] then r.TakeFX_SetOffline(tk, f, false); restored = restored + 1 end
+        if want[r.TakeFX_GetFXGUID(tk, f)] then
+          r.TakeFX_SetOffline(tk, f, false)
+          r.TakeFX_Show(tk, f, 2)
+          r.TakeFX_Show(tk, f, 0)
+          restored = restored + 1
+        end
       end
     end
   end
