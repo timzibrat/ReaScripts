@@ -94,6 +94,10 @@ With no item selected, the item under the mouse is used]]></changelog>
         <changelog><![CDATA[Selected notes only count when run from the inline editor (leftover selections hijacked razor / time selection in arrange)]]></changelog>
         <source main="main midi_inlineeditor">https://raw.githubusercontent.com/timzibrat/ReaScripts/ea65082f357b544b519d2d40e4cc0510612c2cc3/ZS_smart%20legato%20with%20overlap%20arrange.lua</source>
       </version>
+      <version name="1.5" author="Zibrat Studio" time="2026-11-17T06:34:43Z">
+        <changelog><![CDATA[Selected notes count whenever the item's inline editor is open, also from a Main-section shortcut (they were ignored before)]]></changelog>
+        <source main="main midi_inlineeditor">https://raw.githubusercontent.com/timzibrat/ReaScripts/d7f704456d0df605e755fb3966fceeb101cefab3/ZS_smart%20legato%20with%20overlap%20arrange.lua</source>
+      </version>
     </reapack>
     <reapack name="ZS_smart legato with overlap.lua" type="script">
       <version name="1.2" author="Zibrat Studio" time="2026-10-05T06:20:02Z">
@@ -136,6 +140,10 @@ With no item selected, the item under the mouse is used · muted items are skipp
       <version name="1.3" author="Zibrat Studio" time="2026-10-12T21:21:59Z">
         <changelog><![CDATA[Selected notes only count when run from the inline editor (leftover selections hijacked razor / time selection in arrange)]]></changelog>
         <source main="main midi_inlineeditor">https://raw.githubusercontent.com/timzibrat/ReaScripts/ea65082f357b544b519d2d40e4cc0510612c2cc3/ZS_smart%20quantize%20midi%20notes.lua</source>
+      </version>
+      <version name="1.4" author="Zibrat Studio" time="2026-11-17T06:34:43Z">
+        <changelog><![CDATA[Selected notes count whenever the item's inline editor is open, also from a Main-section shortcut (they were ignored before)]]></changelog>
+        <source main="main midi_inlineeditor">https://raw.githubusercontent.com/timzibrat/ReaScripts/d7f704456d0df605e755fb3966fceeb101cefab3/ZS_smart%20quantize%20midi%20notes.lua</source>
       </version>
     </reapack>
   </category>
