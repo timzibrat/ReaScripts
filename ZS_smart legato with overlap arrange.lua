@@ -2,8 +2,10 @@
    * Category:    Arrange + MIDI Inline Editor
    * Description: Legato with overlap - selected notes, razor areas, time selection or selected items
    * Based on:    Archie - Set note ends to start of next note (legato)
-   * Version:     1.4
-   * Changelog:   v1.4 + selected notes only count when run from the inline editor
+   * Version:     1.5
+   * Changelog:   v1.5 + selected notes count whenever the item's inline editor is open,
+   *                     also from a Main-section shortcut (they were ignored before)
+   *              v1.4 + selected notes only count when run from the inline editor
    *                     (leftover selections hijacked razor / time selection in arrange)
    *              v1.3 + one script for arrange and the inline editor
    *                   + priority: selected notes > razor areas > time selection > selected items
@@ -126,18 +128,22 @@
 
         local jobs = {};
 
-        -- 1. selected notes, only when run from the inline editor: Reaper keeps notes selected
-        -- after the editor closes, and in arrange that leftover selection is invisible
+        -- 1. selected notes, only where they're visible: the item's inline editor is open, or the
+        -- script runs from the inline editor section. Reaper keeps notes selected after the editor
+        -- closes, and in arrange that leftover selection is invisible.
+        -- Shortcuts bound in Main also fire inside the inline editor, so the section alone isn't enough.
         local _,_,section = reaper.get_action_context();
-        if section == 32062 then; -- MIDI Inline Editor action section
-            local noteItems = {table.unpack(selItems)};
-            if mouseItem and not reaper.IsMediaItemSelected(mouseItem) then noteItems[#noteItems+1] = mouseItem end;
-            for _,item in ipairs(noteItems) do;
-                local tk = MidiTake(item);
-                if reaper.MIDI_EnumSelNotes(tk,-1) ~= -1 then jobs[#jobs+1] = {take=tk,selOnly=true} end;
-            end;
-            if #jobs > 0 then return jobs,"selected notes" end;
+        local function NotesVisible(tk);
+            if section == 32062 then return true end; -- MIDI Inline Editor action section
+            return reaper.BR_IsMidiOpenInInlineEditor ~= nil and reaper.BR_IsMidiOpenInInlineEditor(tk);
         end;
+        local noteItems = {table.unpack(selItems)};
+        if mouseItem and not reaper.IsMediaItemSelected(mouseItem) then noteItems[#noteItems+1] = mouseItem end;
+        for _,item in ipairs(noteItems) do;
+            local tk = MidiTake(item);
+            if NotesVisible(tk) and reaper.MIDI_EnumSelNotes(tk,-1) ~= -1 then jobs[#jobs+1] = {take=tk,selOnly=true} end;
+        end;
+        if #jobs > 0 then return jobs,"selected notes" end;
 
         -- 2. razor areas (track-level only; envelope razor edits are skipped)
         for t = 0,reaper.CountTracks(0)-1 do;
