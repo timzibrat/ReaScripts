@@ -178,6 +178,12 @@ With no item selected, the item under the mouse is used · muted items are skipp
     </reapack>
   </category>
   <category name="Mixing">
+    <reapack name="ZS_copy focused FX to selected items.lua" type="script">
+      <version name="1.0" author="Zibrat Studio" time="2026-11-20T12:17:34Z">
+        <changelog><![CDATA[First version: copies the FX of the focused floating window (e.g. from the Project Bay) to the selected items, or to the selected tracks]]></changelog>
+        <source main="main">https://raw.githubusercontent.com/timzibrat/ReaScripts/f42708d6e2d650bb6b0e698522efb61d49dc4f92/ZS_copy%20focused%20FX%20to%20selected%20items.lua</source>
+      </version>
+    </reapack>
     <reapack name="ZS_master stereo 5.1 toggle.lua" type="script">
       <version name="1.0" author="Zibrat Studio" time="2026-10-12T19:58:38Z">
         <changelog><![CDATA[First version: master stereo (2 ch, out 1-2) <-> 5.1 (6 ch, out 1-6), toolbar toggle]]></changelog>
